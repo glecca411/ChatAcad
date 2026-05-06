@@ -4,7 +4,7 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_community.vectorstores import Chroma
-from langchain.chains.retrieval_qa.base import RetrievalQA
+from langchain_classic.chains import RetrievalQA
 
 # 1. Configuración de la página
 st.set_page_config(page_title="Asistente Normativo Universitario", page_icon="🎓")
