@@ -95,6 +95,22 @@ if archivo:
                 
                 Pregunta del estudiante: {pregunta}
                 """
-                respuesta = qa_chain.invoke(prompt_estricto)
+                
+        # Generar respuesta
+        with st.chat_message("assistant"):
+            with st.spinner("Consultando la normativa..."):
+                # Ajustamos el input para que sea un diccionario, como pide la nueva versión
+                try:
+                    # Intentamos el formato nuevo (diccionario)
+                    resultado = qa_chain.invoke({"query": pregunta})
+                    respuesta_final = resultado["result"]
+                except Exception:
+                    # Si falla, intentamos el formato anterior
+                    resultado = qa_chain.run(pregunta)
+                    respuesta_final = resultado
+
+                st.markdown(respuesta_final)
+                st.session_state.messages.append({"role": "assistant", "content": respuesta_final})
+                
                 st.markdown(respuesta["result"])
                 st.session_state.messages.append({"role": "assistant", "content": respuesta["result"]})
